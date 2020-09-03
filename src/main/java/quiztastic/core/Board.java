@@ -23,9 +23,21 @@ public class Board {
 
     @Override
     public String toString() {
-        return "Board{" +
-                "groups=" + groups +
-                '}';
+        String retVal="";
+        for (Group group:groups){
+            retVal=retVal+String.format("%-30s",group.category.getName());
+        }
+        retVal=retVal+"\n";
+        for (int i=0;i<5;i++){
+            for (Group group:groups){
+                retVal=retVal+String.format("%-30d",group.questions.get(i).getScore());
+            }
+            retVal=retVal+"\n";
+
+        }
+
+
+        return retVal;
     }
 
     public static class Group {
