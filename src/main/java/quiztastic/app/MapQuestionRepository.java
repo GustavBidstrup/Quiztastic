@@ -18,6 +18,7 @@ public class MapQuestionRepository implements QuestionRepository {
     }
 
     public static MapQuestionRepository fromQuestionReader(QuestionReader reader) throws IOException, ParseException {
+
         //nyt map til at læse ind i
         HashMap<Category, List<Question>> questionsByCategory = new HashMap<>();
         //lav nyt repository
@@ -40,6 +41,8 @@ public class MapQuestionRepository implements QuestionRepository {
 
         return mapQuestionRepository;
 
+
+
     }
     @Override
     public List<Category> getCategories() {
@@ -58,5 +61,14 @@ public class MapQuestionRepository implements QuestionRepository {
         //slå op i map og returner listen...
         return this.questionsByCategory.get(category);
 
+    }
+
+    @Override
+    public Iterable<Question> getQuestions() {
+        List<Question> questions = new ArrayList<>();
+        for (List<Question> l : questionsByCategory.values()) {
+            questions.addAll(l);
+        }
+        return questions;
     }
 }
