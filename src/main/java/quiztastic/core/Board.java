@@ -24,9 +24,13 @@ public class Board {
     @Override
     public String toString() {
         String retVal="";
+
+        char c='A';
         for (Group group:groups){
-            retVal=retVal+String.format("%-30s",group.category.getName());
+            retVal=retVal+c+": "+String.format("%-27s",group.category.getName());
+            c++;
         }
+
         retVal=retVal+"\n";
         for (int i=0;i<5;i++){
             for (Group group:groups){
