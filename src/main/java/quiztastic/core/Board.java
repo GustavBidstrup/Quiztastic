@@ -21,6 +21,20 @@ public class Board {
         return groups;
     }
 
+    public Group getGroupfromChar(String choice){
+        char c= choice.charAt(0);
+        return this.groups.get((int)c-(int) ('a'));
+    }
+
+    public Question getQuestionFromString(String choice){
+        Group group=this.getGroupfromChar(choice);
+        choice=choice.substring(1);
+        int value=Integer.parseInt(choice);
+        Question question=group.getQuestion(value);
+        return question;
+    }
+
+   
     @Override
     public String toString() {
         String retVal="";
@@ -69,6 +83,15 @@ public class Board {
 
         public Category getCategory() {
             return category;
+        }
+
+        public Question getQuestion(int value){
+            for (Question question:this.questions){
+                if (question.getScore()==value){
+                    return question;
+                }
+            }
+            return null;
         }
 
         public List<Question> getQuestions() {
