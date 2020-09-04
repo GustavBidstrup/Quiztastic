@@ -26,15 +26,25 @@ public class Protocol {
     }
 
     public void run () {
+        out.println("Your options are:");
+        out.println("- [h]elp: ask for help");
+        out.println("- [d]raw: draw the board");
         String line = fetchCommand();
         while (!line.equals("quit")) {
             switch (line) {
                 case "h":
                 case "help":
-                   out.println("There are no help!");
+                   out.println("Your options are:");
+                   out.println("- [h]elp: ask for help");
+                   out.println("- [d]raw: draw the board");
                    break;
+                case "d":
+                case "draw":
+                    System.out.println(this.quiz.getBoard());
+                    break;
                 default:
                    out.println("Unknown command! " + line);
+
             }
             out.flush();
             line = fetchCommand();
