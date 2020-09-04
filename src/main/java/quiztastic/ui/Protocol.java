@@ -26,9 +26,10 @@ public class Protocol {
     }
 
     public void run () {
+        out.println("Welcome to Quiztastic!");
         out.println("Your options are:");
-        out.println("- [h]elp: ask for help");
-        out.println("- [d]raw: draw the board");
+        out.println("- [h]Help: ask for help");
+        out.println("- [d]Draw: draw the quiz board");
         String line = fetchCommand();
         while (!line.equals("quit")) {
             switch (line) {
