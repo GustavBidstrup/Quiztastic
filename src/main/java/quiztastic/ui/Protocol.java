@@ -25,7 +25,6 @@ public class Protocol {
         String line = in.nextLine().strip().toLowerCase();
         return line;
     }
-<<<<<<< HEAD
     private void displayhelp(){
         out.println("Your options are:");
         out.println("- [h]elp: ask for help");
@@ -33,17 +32,12 @@ public class Protocol {
         out.println("- [a]nswer A200: get the question for category A, question 200.");
     }
 
-    public void run () {
-        out.println("Welcome to Quiztastic !");
-        displayhelp();
-=======
+
 
     public void run () {
         out.println("Welcome to Quiztastic!");
-        out.println("Your options are:");
-        out.println("- [h]Help: ask for help");
-        out.println("- [d]Draw: draw the quiz board");
->>>>>>> 2e3d0e35b76556f1fc8967e4f92bb4603782138c
+        displayhelp();
+
         String line = fetchCommand();
         while (!line.equals("quit")) {
             String[] arrOfStr = line.split(" ");
