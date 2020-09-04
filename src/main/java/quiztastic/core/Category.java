@@ -28,6 +28,9 @@ public class Category {
         return name.equals(category.name);
     }
 
+
+
+
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -39,4 +42,5 @@ public class Category {
                 "name='" + name + '\'' +
                 '}';
     }
+
 }
