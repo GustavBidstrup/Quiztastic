@@ -36,6 +36,7 @@ public class BoardFactory {
                 continue;
             }
         }
+
         return new Board(groups);
     }
 }
