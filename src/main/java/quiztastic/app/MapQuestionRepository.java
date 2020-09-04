@@ -52,6 +52,7 @@ public class MapQuestionRepository implements QuestionRepository {
             categoryArrayList.add(category);
 
         }
+        System.out.println(categoryArrayList);
         return categoryArrayList;
 
     }

@@ -36,6 +36,7 @@ public class BoardController {
                 continue;
             }
         }
+
         return new Board(groups);
     }
 }
