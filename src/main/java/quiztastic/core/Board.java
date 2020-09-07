@@ -1,6 +1,7 @@
 package quiztastic.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /** A Jeopardy Board
@@ -34,7 +35,7 @@ public class Board {
         return question;
     }
 
-   
+
     @Override
     public String toString() {
         String retVal="";
@@ -58,6 +59,8 @@ public class Board {
         return retVal;
     }
 
+
+
     public static class Group {
         private final Category category;
         private final List<Question> questions;
@@ -67,6 +70,7 @@ public class Board {
             this.questions = List.copyOf(questions);
             validate();
         }
+
 
         private void validate() {
             if (questions.size() != 5) {
@@ -106,4 +110,5 @@ public class Board {
                     '}';
         }
     }
+
 }

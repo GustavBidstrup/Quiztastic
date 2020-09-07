@@ -1,6 +1,7 @@
 package quiztastic.ui;
 
 import quiztastic.app.Quiztastic;
+import quiztastic.core.Question;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
@@ -32,11 +33,24 @@ public class Protocol {
         out.println("- [a]nswer A200: get the question for category A, question 200.");
     }
 
+    public String answerQuestion(Question question) {
+        String str = "";
 
+        System.out.println("Answer the question?");
+        String answer = fetchCommand();
+        if (answer.equals(question.getAnswer().toLowerCase())) {
+            str = "Correct";
+        } else {
+            str = "incorrect";
+        }
+        return str;
+    }
 
     public void run () {
         out.println("Welcome to Quiztastic!");
         displayhelp();
+        String answer;
+        Question question;
 
         String line = fetchCommand();
         while (!line.equals("quit")) {
@@ -52,8 +66,11 @@ public class Protocol {
                     break;
                 case "a":
                 case "answer":
-                    System.out.println(this.quiz.getBoard().getQuestionFromString(arrOfStr[1]));
+                    question = this.quiz.getBoard().getQuestionFromString(arrOfStr[1]);
+                    System.out.println(question.getQuestion());
+                    System.out.println(answerQuestion(question));
                     break;
+
                 default:
                    out.println("Unknown command! " + line);
 
@@ -63,5 +80,8 @@ public class Protocol {
         }
 
     }
+
+
+
 
 }
