@@ -1,7 +1,9 @@
 package quiztastic.ui;
 
 import quiztastic.app.Quiztastic;
+import quiztastic.core.Board;
 import quiztastic.core.Question;
+import quiztastic.entries.DisplayBoard;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
@@ -33,6 +35,25 @@ public class Protocol {
         out.println("- [a]nswer A200: get the question for category A, question 200.");
         out.println("- [q]uit:");
     }
+    private void drawBoard(Board board){
+        String retVal="";
+
+        char c='A';
+        for (Board.Group group: board.getGroups()){
+            retVal=retVal+c+": "+String.format("%-27s",group.getCategory().getName());
+            c++;
+        }
+
+        retVal=retVal+"\n";
+        for (int i=0;i<5;i++){
+            for (Board.Group group:board.getGroups()){
+                retVal=retVal+String.format("%-30d",group.getQuestions().get(i).getScore());
+            }
+            retVal=retVal+"\n";
+
+        }
+        System.out.println(retVal);
+    }
 
     public String answerQuestion(Question question) {
         String str = "";
@@ -63,7 +84,8 @@ public class Protocol {
                    break;
                 case "d":
                 case "draw":
-                    System.out.println(this.quiz.getBoard());
+                    //System.out.println();
+                    drawBoard(this.quiz.getBoard());
                     break;
                 case "a":
                 case "answer":
