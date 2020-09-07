@@ -31,6 +31,7 @@ public class Protocol {
         out.println("- [h]elp: ask for help");
         out.println("- [d]raw: draw the board");
         out.println("- [a]nswer A200: get the question for category A, question 200.");
+        out.println("- [q]uit:");
     }
 
     public String answerQuestion(Question question) {
@@ -53,7 +54,7 @@ public class Protocol {
         Question question;
 
         String line = fetchCommand();
-        while (!line.equals("quit")) {
+        while (!(line.equals("quit")||line.equals("q"))) {
             String[] arrOfStr = line.split(" ");
             switch (arrOfStr[0]) {
                 case "h":
