@@ -9,11 +9,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class RunTUI {
-    private final Socket socket;
 
-    public RunTUI(Socket socket) {
-        this.socket = socket;
-    }
 
     public static void main(String[] args) throws IOException {
         final int port = 6060;
