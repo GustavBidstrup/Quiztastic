@@ -56,7 +56,7 @@ public class Protocol {
             str=str+"\n";
 
         }
-        System.out.println(str);
+        out.println(str);
     }
 
     public void answerQuestion(String chosenQuestion) {
@@ -81,7 +81,7 @@ public class Protocol {
         String answer;
         Question question;
         Board board=quiz.getBoard();
-        String line = fetchCommand();
+        String line = fetchCommand().toLowerCase();
         while (!(line.equals("quit")||line.equals("q"))) {
             String[] arrOfStr = line.split(" ");
             switch (arrOfStr[0]) {
