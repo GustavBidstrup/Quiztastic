@@ -25,7 +25,7 @@ public class Protocol {
     private String fetchCommand () {
         out.print("> ");
         out.flush();
-        String line = in.nextLine().strip().toLowerCase();
+        String line = in.nextLine().strip();
         return line;
     }
     private void displayhelp(){
@@ -36,36 +36,43 @@ public class Protocol {
         out.println("- [q]uit:");
     }
     private void drawBoard(Board board){
-        String retVal="";
+        String str="";
 
         char c='A';
         for (Board.Group group: board.getGroups()){
-            retVal=retVal+c+": "+String.format("%-27s",group.getCategory().getName());
+            str=str+c+": "+String.format("%-27s",group.getCategory().getName());
             c++;
         }
 
-        retVal=retVal+"\n";
-        for (int i=0;i<5;i++){
-            for (Board.Group group:board.getGroups()){
-                retVal=retVal+String.format("%-30d",group.getQuestions().get(i).getScore());
+        str=str+"\n";
+        for (int questionNumber=0;questionNumber<5;questionNumber++){
+            for (int groupNumber=0;groupNumber<6;groupNumber++){
+                if (quiz.getCurrentGame().isAnswered(groupNumber,questionNumber)){
+                    str=str+String.format("%-30s","---");
+                }else {
+                    str = str + String.format("%-30d", (questionNumber + 1) * 100);
+                }// str=str+String.format("%-30d",board.getGroups().get(groupNumber).getQuestions().get(questionNumber).getScore());
             }
-            retVal=retVal+"\n";
+            str=str+"\n";
 
         }
-        System.out.println(retVal);
+        System.out.println(str);
     }
 
-    public String answerQuestion(Question question) {
-        String str = "";
-
-        System.out.println("Answer the question?");
+    public void answerQuestion(String chosenQuestion) {
+        int grupNumber=(int)chosenQuestion.charAt(0)-(int)'a';
+        int questionNumber=Integer.parseInt(chosenQuestion.substring(1))/100-1;
+        out.println(quiz.getCurrentGame().getQuestionText(grupNumber,questionNumber));
         String answer = fetchCommand();
-        if (answer.equals(question.getAnswer().toLowerCase())) {
-            str = "Correct";
-        } else {
-            str = "incorrect";
+        String correctAnswer=quiz.getCurrentGame().answerQuestion(grupNumber,questionNumber,answer);
+        if (correctAnswer==null){
+            out.println("Correct, Yuo got "+(questionNumber+1)*100+" points");
         }
-        return str;
+        else {
+            out.println("Wrong, the answer was: "+correctAnswer);
+        }
+
+
     }
 
     public void run () {
@@ -73,7 +80,7 @@ public class Protocol {
         displayhelp();
         String answer;
         Question question;
-
+        Board board=quiz.getBoard();
         String line = fetchCommand();
         while (!(line.equals("quit")||line.equals("q"))) {
             String[] arrOfStr = line.split(" ");
@@ -85,13 +92,14 @@ public class Protocol {
                 case "d":
                 case "draw":
                     //System.out.println();
-                    drawBoard(this.quiz.getBoard());
+                    drawBoard(quiz.getBoard());
                     break;
                 case "a":
                 case "answer":
-                    question = this.quiz.getBoard().getQuestionFromString(arrOfStr[1]);
-                    System.out.println(question.getQuestion());
-                    System.out.println(answerQuestion(question));
+                    answerQuestion(arrOfStr[1]);
+                   // question = quiz.getBoard().getQuestionFromString(arrOfStr[1]);
+                    //System.out.println(question.getQuestion());
+                    //System.out.println(answerQuestion(question));
                     break;
 
                 default:
