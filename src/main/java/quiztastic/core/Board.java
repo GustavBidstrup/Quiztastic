@@ -47,9 +47,12 @@ public class Board {
         }
 
         retVal=retVal+"\n";
+        Score score = new Score();
+        int xz = score.makeScore();
+
         for (int i=0;i<5;i++){
             for (Group group:groups){
-                retVal=retVal+String.format("%-30d",group.questions.get(i).getScore());
+                retVal=retVal+String.format("%-30d",group.questions.get(i));
             }
             retVal=retVal+"\n";
 

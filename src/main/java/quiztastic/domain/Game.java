@@ -67,5 +67,7 @@ public class Game {
         public boolean hasIndex(int categoryNumber, int questionNumber)  {
             return this.categoryNumber == categoryNumber && this.questionNumber == questionNumber;
         }
+
+
     }
 }
