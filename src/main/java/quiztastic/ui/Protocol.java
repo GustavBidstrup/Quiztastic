@@ -51,7 +51,7 @@ public class Protocol {
                     str=str+String.format("%-30s","---");
                 }else {
                     str = str + String.format("%-30d", (questionNumber + 1) * 100);
-                }// str=str+String.format("%-30d",board.getGroups().get(groupNumber).getQuestions().get(questionNumber).getScore());
+                }
             }
             str=str+"\n";
 
@@ -60,13 +60,13 @@ public class Protocol {
     }
 
     public void answerQuestion(String chosenQuestion) {
-        int grupNumber=(int)chosenQuestion.charAt(0)-(int)'a';
+        int categoryNumber=(int)chosenQuestion.charAt(0)-(int)'a';
         int questionNumber=Integer.parseInt(chosenQuestion.substring(1))/100-1;
-        out.println(quiz.getCurrentGame().getQuestionText(grupNumber,questionNumber));
+        out.println(quiz.getCurrentGame().getQuestionText(categoryNumber,questionNumber));
         String answer = fetchCommand();
-        String correctAnswer=quiz.getCurrentGame().answerQuestion(grupNumber,questionNumber,answer);
+        String correctAnswer=quiz.getCurrentGame().answerQuestion(categoryNumber,questionNumber,answer);
         if (correctAnswer==null){
-            out.println("Correct, Yuo got "+(questionNumber+1)*100+" points");
+            out.println("Correct, You got "+(questionNumber+1)*100+" points");
         }
         else {
             out.println("Wrong, the answer was: "+correctAnswer);
