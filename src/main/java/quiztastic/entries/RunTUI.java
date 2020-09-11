@@ -14,7 +14,11 @@ public class RunTUI {
     public static void main(String[] args) throws IOException {
         final int port = 6060;
         final ServerSocket serverSocket = new ServerSocket(port);
-        Socket socket = serverSocket.accept();
-        new Protocol(new Scanner(socket.getInputStream()), new PrintWriter(socket.getOutputStream())).run();
+        while (true) {
+            Socket socket = serverSocket.accept();
+            System.out.println(socket.getRemoteSocketAddress()+" connected");
+            new Protocol(new Scanner(socket.getInputStream()), new PrintWriter(socket.getOutputStream())).run();
+            socket.close();
+        }
     }
 }
