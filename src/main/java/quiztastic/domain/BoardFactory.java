@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class BoardFactory {
     public final QuestionRepository questionRepository;
@@ -27,15 +28,21 @@ public class BoardFactory {
     }
 
     public Board makeBoard() {
-        List<Board.Group> groups = new ArrayList<>();
-        for (Category c : questionRepository.getCategories()) {
-            if (groups.size() == 6) break;
-            try {
-                groups.add(makeGroup(c));
-            } catch (IllegalArgumentException e) {
-                continue;
+            List<Board.Group> groups = new ArrayList<>();
+            Category c;
+            Random random=new Random();
+            int categoryNumber=0;
+            while(groups.size() < 6) {
+                categoryNumber = random.nextInt(questionRepository.getCategories().size());
+                c=questionRepository.getCategories().get(categoryNumber);
+
+                try {
+                    groups.add(makeGroup(c));
+                } catch (IllegalArgumentException e) {
+                    continue;
+                }
             }
-        }
+
 
         return new Board(groups);
     }

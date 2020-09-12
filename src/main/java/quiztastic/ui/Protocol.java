@@ -51,6 +51,7 @@ public class Protocol {
                     str=str+String.format("%-30s","---");
                 }else {
                     str = str + String.format("%-30d", (questionNumber + 1) * 100);
+
                 }
             }
             str=str+"\n";
@@ -91,15 +92,12 @@ public class Protocol {
                    break;
                 case "d":
                 case "draw":
-                    //System.out.println();
-                    drawBoard(quiz.getBoard());
+                    drawBoard(board);
                     break;
                 case "a":
                 case "answer":
                     answerQuestion(arrOfStr[1]);
-                   // question = quiz.getBoard().getQuestionFromString(arrOfStr[1]);
-                    //System.out.println(question.getQuestion());
-                    //System.out.println(answerQuestion(question));
+
                     break;
 
                 default:
@@ -107,7 +105,7 @@ public class Protocol {
 
             }
             out.flush();
-            line = fetchCommand();
+            line = fetchCommand().toLowerCase();
         }
 
     }
