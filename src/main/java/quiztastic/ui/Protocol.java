@@ -81,7 +81,7 @@ public class Protocol {
         displayhelp();
         String answer;
         Question question;
-        Board board=quiz.getBoard();
+        Board board=quiz.getCurrentGame().getBoard();
         String line = fetchCommand().toLowerCase();
         while (!(line.equals("quit")||line.equals("q"))) {
             String[] arrOfStr = line.split(" ");
