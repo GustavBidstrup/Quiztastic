@@ -16,11 +16,9 @@ public class Category {
         this.name = name.toUpperCase();
     }
 
-    /*
     public String getName() {
         return name;
     }
-     */
 
     @Override
     public boolean equals(Object o) {
@@ -30,9 +28,8 @@ public class Category {
         return name.equals(category.name);
     }
 
-    public String getName() {
-        return name;
-    }
+
+
 
     @Override
     public int hashCode() {

@@ -1,12 +1,14 @@
 package quiztastic.ui;
 
 import quiztastic.app.Quiztastic;
-import quiztastic.domain.Game;
+import quiztastic.core.Board;
+import quiztastic.core.Question;
+import quiztastic.entries.DisplayBoard;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Protocol {
@@ -23,59 +25,92 @@ public class Protocol {
     private String fetchCommand () {
         out.print("> ");
         out.flush();
-        String word = in.next(); // answer a100 -> answer
-        return word;
+        String line = in.nextLine().strip();
+        return line;
+    }
+    private void displayhelp(){
+        out.println("Your options are:");
+        out.println("- [h]elp: ask for help");
+        out.println("- [d]raw: draw the board");
+        out.println("- [a]nswer A200: get the question for category A, question 200.");
+        out.println("- [q]uit:");
+    }
+    private void drawBoard(Board board){
+        String str="";
+
+        char c='A';
+        for (Board.Group group: board.getGroups()){
+            str=str+c+": "+String.format("%-27s",group.getCategory().getName());
+            c++;
+        }
+
+        str=str+"\n";
+        for (int questionNumber=0;questionNumber<5;questionNumber++){
+            for (int groupNumber=0;groupNumber<6;groupNumber++){
+                if (quiz.getCurrentGame().isAnswered(groupNumber,questionNumber)){
+                    str=str+String.format("%-30s","---");
+                }else {
+                    str = str + String.format("%-30d", (questionNumber + 1) * 100);
+
+                }
+            }
+            str=str+"\n";
+
+        }
+        out.println(str);
+    }
+
+    public void answerQuestion(String chosenQuestion) {
+        int categoryNumber=(int)chosenQuestion.charAt(0)-(int)'a';
+        int questionNumber=Integer.parseInt(chosenQuestion.substring(1))/100-1;
+        out.println(quiz.getCurrentGame().getQuestionText(categoryNumber,questionNumber));
+        String answer = fetchCommand();
+        String correctAnswer=quiz.getCurrentGame().answerQuestion(categoryNumber,questionNumber,answer);
+        if (correctAnswer==null){
+            out.println("Correct, You got "+(questionNumber+1)*100+" points");
+        }
+        else {
+            out.println("Wrong, the answer was: "+correctAnswer);
+        }
+
+
     }
 
     public void run () {
-        String cmd = fetchCommand();
-        while (!cmd.equals("quit")) {
-            switch (cmd) {
+        out.println("Welcome to Quiztastic!");
+        displayhelp();
+        String answer;
+        Question question;
+        Board board=quiz.getBoard();
+        String line = fetchCommand().toLowerCase();
+        while (!(line.equals("quit")||line.equals("q"))) {
+            String[] arrOfStr = line.split(" ");
+            switch (arrOfStr[0]) {
                 case "h":
                 case "help":
-                   out.println("There are no help!");
+                    displayhelp();
                    break;
-                case "draw":
                 case "d":
-                    displayBoard();
+                case "draw":
+                    drawBoard(board);
                     break;
-                case "answer":
                 case "a":
-                    String question = in.next();
-                    String a = question.substring(0, 1).toLowerCase(); // "A100" -> "a"
-                    int questionScore = Integer.parseInt(question.substring(1)); // "A100" -> 100
-                    answerQuestion("abcdef".indexOf(a), questionScore);
+                case "answer":
+                    answerQuestion(arrOfStr[1]);
+
                     break;
+
                 default:
-                   out.println("Unknown command! " + cmd);
+                   out.println("Unknown command! " + line);
+
             }
-            in.nextLine();
             out.flush();
-            cmd = fetchCommand();
+            line = fetchCommand().toLowerCase();
         }
 
     }
 
-    private void answerQuestion(int categoryNumber, int questionScore) {
 
-    }
 
-    private void displayBoard() {
-        Game game = quiz.getCurrentGame();
-        List<Integer> scores = List.of(100,200,300,400,500);
-        for (int questionNumber = 0; questionNumber < 5; questionNumber++) {
-            out.print("|");
-            for (int category = 0; category < 6; category++) {
-                out.print("    ");
-                if (game.isAnswered(category, questionNumber)) {
-                    out.print("---");
-                } else {
-                    out.print(scores.get(questionNumber));
-                }
-                out.print("    |");
-            }
-            out.println();
-        }
-    }
 
 }
