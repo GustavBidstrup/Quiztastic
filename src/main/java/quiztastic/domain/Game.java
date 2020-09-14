@@ -53,6 +53,10 @@ public class Game {
         return false;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     private class Answer {
         private final int categoryNumber;
         private final int questionNumber;
