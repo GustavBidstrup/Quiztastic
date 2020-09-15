@@ -2,6 +2,7 @@ package quiztastic.ui;
 
 import quiztastic.app.Quiztastic;
 import quiztastic.core.Board;
+import quiztastic.core.Player;
 import quiztastic.core.Question;
 import quiztastic.entries.DisplayBoard;
 
@@ -28,13 +29,29 @@ public class Protocol {
         String line = in.nextLine().strip();
         return line;
     }
+
     private void displayhelp(){
         out.println("Your options are:");
         out.println("- [h]elp: ask for help");
         out.println("- [d]raw: draw the board");
         out.println("- [a]nswer A200: get the question for category A, question 200.");
         out.println("- [q]uit:");
+        out.println("- [n]ew player:");
+
     }
+
+    private Player setNewPlayer() {
+        int count;
+        Player player = new Player();
+        out.println("What is your name?");
+        String name = fetchCommand();
+        player.setName(name);
+        out.println("you are now in the game " + player);
+        return player;
+    }
+
+
+
     private void drawBoard(Board board){
         String str="";
 
@@ -79,6 +96,7 @@ public class Protocol {
     public void run () {
         out.println("Welcome to Quiztastic!");
         displayhelp();
+
         String answer;
         Question question;
         Board board=quiz.getCurrentGame().getBoard();
@@ -97,9 +115,11 @@ public class Protocol {
                 case "a":
                 case "answer":
                     answerQuestion(arrOfStr[1]);
-
                     break;
-
+                case "p":
+                case "Player":
+                    setNewPlayer();
+                    break;
                 default:
                    out.println("Unknown command! " + line);
 

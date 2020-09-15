@@ -20,6 +20,7 @@ public class BoardFactory {
     public Board.Group makeGroup(Category c) throws IllegalArgumentException {
         List<Question> questions =
                 questionRepository.getQuestionsWithCategory(c);
+
         if (questions.size() >= 5) {
             return new Board.Group(c, questions.subList(0, 5));
         } else {
