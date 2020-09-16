@@ -14,6 +14,23 @@ public class Game {
     private final List<Answer> answerList;
     private volatile List<Player> players=new ArrayList<>();
     private volatile Player playerToChoseCategori;
+    private volatile Player playerToAnswer;
+
+    public void setPlayerToChoseCategori(Player playerToChoseCategori) {
+        this.playerToChoseCategori = playerToChoseCategori;
+    }
+
+    public void setPlayerToAnswer(Player playerToAnswer) {
+        this.playerToAnswer = playerToAnswer;
+    }
+
+    public Player getPlayerToChoseCategori() {
+        return playerToChoseCategori;
+    }
+
+    public Player getPlayerToAnswer() {
+        return playerToAnswer;
+    }
 
     public Game(Board board, List<Answer> answerList) {
         this.board = board;
