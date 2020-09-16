@@ -40,8 +40,8 @@ public class Protocol {
 
     }
 
+    // Create new Player and set name
     private Player setNewPlayer() {
-        int count;
         Player player = new Player();
         out.println("What is your name?");
         String name = fetchCommand();
@@ -49,7 +49,6 @@ public class Protocol {
         out.println("you are now in the game " + player);
         return player;
     }
-
 
 
     private void drawBoard(Board board){
