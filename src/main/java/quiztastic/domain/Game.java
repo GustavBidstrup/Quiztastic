@@ -2,6 +2,7 @@ package quiztastic.domain;
 
 import quiztastic.core.Board;
 import quiztastic.core.Category;
+import quiztastic.core.Player;
 import quiztastic.core.Question;
 
 import java.util.ArrayList;
@@ -11,12 +12,20 @@ import java.util.stream.Collectors;
 public class Game {
     private final Board board;
     private final List<Answer> answerList;
+    private volatile List<Player> players=new ArrayList<>();
+    private volatile Player playerToChoseCategori;
 
     public Game(Board board, List<Answer> answerList) {
         this.board = board;
         this.answerList = answerList;
     }
 
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+    public int numberOffPlayers(){
+        return players.size();
+    }
     public List<Category> getCategories() {
         List<Category> list = new ArrayList<>();
         for (Board.Group group : this.board.getGroups()) {
