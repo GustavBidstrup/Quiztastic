@@ -7,7 +7,6 @@ import quiztastic.core.Question;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Game {
     private final Board board;
@@ -15,6 +14,19 @@ public class Game {
     private volatile List<Player> players=new ArrayList<>();
     private volatile Player playerToChoseCategori;
     private volatile Player playerToAnswer;
+
+    /*
+    // Constructor
+    public Game() {
+
+        this.players = players;
+        this.playerToChoseCategori = playerToChoseCategori;
+        this.playerToAnswer = playerToAnswer;
+
+        board = null;
+        answerList = null;
+    }
+     */
 
     public void setPlayerToChoseCategori(Player playerToChoseCategori) {
         this.playerToChoseCategori = playerToChoseCategori;

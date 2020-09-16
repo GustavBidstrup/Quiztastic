@@ -25,11 +25,13 @@ public class Klient implements Runnable{
        while(game.numberOffPlayers()<2){}
        out.println("ready to play");
 
+       /*
        for (int i=0;i>15;i++){
            choseQuestion();
            buzz();
            answer();
        }
+        */
 
 
        drawBoard(game.getBoard());

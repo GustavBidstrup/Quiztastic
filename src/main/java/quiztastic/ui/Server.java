@@ -1,5 +1,6 @@
 package quiztastic.ui;
 
+import quiztastic.domain.Game;
 import quiztastic.entries.RunGame;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class Server {
             Klient klient=new Klient(new Scanner(socket.getInputStream()), new PrintWriter(socket.getOutputStream()));
             Thread thread=new Thread(klient);
             thread.start();
+
+
           //  new Protocol(new Scanner(socket.getInputStream()), new PrintWriter(socket.getOutputStream())).run();
 
         }
