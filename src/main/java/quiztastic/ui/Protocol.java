@@ -2,7 +2,7 @@ package quiztastic.ui;
 
 import quiztastic.app.Quiztastic;
 import quiztastic.core.Board;
-import quiztastic.core.Player;
+//import quiztastic.core.Player;
 import quiztastic.core.Question;
 import quiztastic.entries.DisplayBoard;
 
@@ -39,7 +39,7 @@ public class Protocol {
         out.println("- [n]ew player:");
 
     }
-
+/*
     private Player setNewPlayer() {
         int count;
         Player player = new Player();
@@ -49,7 +49,7 @@ public class Protocol {
         out.println("you are now in the game " + player);
         return player;
     }
-
+*/
 
 
     private void drawBoard(Board board){
@@ -118,7 +118,7 @@ public class Protocol {
                     break;
                 case "p":
                 case "Player":
-                    setNewPlayer();
+                //    setNewPlayer();
                     break;
                 default:
                    out.println("Unknown command! " + line);
