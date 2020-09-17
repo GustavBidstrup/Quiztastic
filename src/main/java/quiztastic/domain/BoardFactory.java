@@ -21,7 +21,7 @@ public class BoardFactory {
         List<Question> questions =
                 questionRepository.getQuestionsWithCategory(c);
 
-        if (questions.size() >= 5) {
+        if (questions.size() >= 5&&questions.get(0).getCategory().getName().length()<14) {
             return new Board.Group(c, questions.subList(0, 5));
         } else {
             throw new IllegalArgumentException("Not enough questions in category");

@@ -12,12 +12,22 @@ import java.util.stream.Collectors;
 public class Game {
     private final Board board;
     private final List<Answer> answerList;
-    private volatile List<Player> players=new ArrayList<>();
+    private volatile List<Player> players=List.of(new Player(), new Player(),new Player(),new Player(),new Player());
+    ;
+    private volatile List<Integer> points=List.of(0,0,0,0,0,0,0);
     private volatile Player playerToChoseCategori;
     private volatile Player playerToAnswer;
 
     public void setPlayerToChoseCategori(Player playerToChoseCategori) {
         this.playerToChoseCategori = playerToChoseCategori;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<Integer> getPoints() {
+        return points;
     }
 
     public void setPlayerToAnswer(Player playerToAnswer) {
