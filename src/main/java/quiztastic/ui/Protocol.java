@@ -116,9 +116,9 @@ public class Protocol {
                 case "answer":
                     answerQuestion(arrOfStr[1]);
                     break;
-                case "p":
+                case "n":
                 case "Player":
-                //    setNewPlayer();
+                    setNewPlayer();
                     break;
                 default:
                    out.println("Unknown command! " + line);

@@ -8,11 +8,12 @@ import quiztastic.domain.Game;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Klient implements Runnable{
+public class Klient implements Runnable {
     private final Scanner in;
     private final PrintWriter out;
-    private Game game=Quiztastic.getInstance().getCurrentGame();
+    private Game game = Quiztastic.getInstance().getCurrentGame();
     private Player klientPlayer;
+
     public Klient(Scanner in, PrintWriter out) {
         this.in = in;
         this.out = out;
@@ -22,24 +23,14 @@ public class Klient implements Runnable{
     public void run() {
         out.println("connected to server");
         out.flush();
-       klientPlayer=setNewPlayer();
-       out.println(klientPlayer);
-       while(game.numberOffPlayers()<2){}
-       out.println("ready to play");
-
-        drawBoard(game.getBoard());
-        out.flush();
-       for (int i=0;i<15;i++){
-          // choseQuestion();
-           //buzz();
-          answer("a100");
-
-       }
-
-
-       drawBoard(game.getBoard());
-       out.flush();
+        klientPlayer = setNewPlayer();
+        out.println(klientPlayer);
+        while (game.numberOffPlayers() < 2) {
+        }
+        out.println("ready to play");
     }
+
+
 
     private void answer(String chosenQuestion) {
 
