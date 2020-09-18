@@ -25,7 +25,7 @@ public class NewPlayer implements Runnable{
         Player player = new Player();
         out.println("What is your name?");
         String name = fetchLine();
-        name=fetchLine();
+       // name=fetchLine();
         player.setName(name);
         out.println("you are now in the game " + player);
         out.flush();
@@ -36,6 +36,14 @@ public class NewPlayer implements Runnable{
         out.print("> ");
         out.flush();
         String line = in.nextLine().strip();
+        int start=0;
+        //fjern foranliggende der ikke er bogstaver
+        for (int i = 0; i <line.length() ; i++) {
+            if(line.charAt(i)<'a'||line.charAt(i)>'Z'){
+                start=i;
+            }
+            line=line.substring(start);
+        }
         return line;
     }
 }
