@@ -1,7 +1,8 @@
 package quiztastic.ui;
 
 import java.util.Scanner;
-
+import quiztastic.ui.Server;
+import quiztastic.domain.Game;
 public class Buzz implements Runnable {
 
     int playerNumber;
@@ -15,13 +16,14 @@ public class Buzz implements Runnable {
     @Override
     public void run() {
 
-        while (!in.hasNext() ) { // || someomeBuzzed) {
+        while ((!in.hasNextLine())) {
 
         }
-        if (in.hasNext()) {
-            // someoneBuzzed = true;
-            // playerToAnswer = playerNumber;
-        }
+            Server.playerToAnswer= playerNumber;
 
+            Server.someoneBuzzed = true;
+
+
+        System.out.println(Server.playerToAnswer+" "+Server.someoneBuzzed);
     }
 }

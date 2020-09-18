@@ -26,9 +26,14 @@ public class Server {
     private RunGame runGame = new RunGame();
     private Game game = Quiztastic.getInstance().getCurrentGame();
     private List<Thread> threads = new ArrayList<>();
-
+    public static volatile int  playerToAnswer=-1;
+    public static volatile boolean someoneBuzzed=false;
 
     private int numberOfPlayers = 3;
+
+    public void setPlayerToAnswer(int playerToAnswer) {
+        this.playerToAnswer = playerToAnswer;
+    }
 
     public Server() throws IOException, InterruptedException {
         while (true) {
@@ -36,7 +41,6 @@ public class Server {
             System.out.println(game.getPlayers());
             //starter 3 tråde med buzz returneer nr på første spiller
             int activePlayer = 0;
-            int playerToAnswer;
             String questionString;
 
             for (int i = 0; i < 15; i++) {
@@ -125,9 +129,30 @@ public class Server {
 
     }
 
-    private int allBuzz() {
-        Random random=new Random();
-        return random.nextInt(3);
+    private int allBuzz() throws IOException, InterruptedException {
+       /* Random random=new Random();
+        return random.nextInt(3);*/
+        Buzz buzz0=new Buzz(0,new Scanner(sockets.get(0).getInputStream()));
+        Buzz buzz1=new Buzz(1,new Scanner(sockets.get(1).getInputStream()));
+        Buzz buzz2=new Buzz(2,new Scanner(sockets.get(2).getInputStream()));
+
+
+
+        Thread thread0=new Thread(buzz0);
+        Thread thread1=new Thread(buzz1);
+        Thread thread2=new Thread(buzz2);
+
+        thread0.start();
+
+        thread1.start();
+        thread2.start();
+
+        while (!someoneBuzzed){}
+        thread0.stop();
+        thread1.stop();
+        thread2.stop();
+
+        return playerToAnswer;
     }
 
 /*
