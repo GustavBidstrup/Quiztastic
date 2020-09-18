@@ -5,6 +5,7 @@ import quiztastic.core.Category;
 import quiztastic.core.Player;
 import quiztastic.core.Question;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,22 +14,10 @@ public class Game {
     private final List<Answer> answerList;
     private volatile List<Player> players=List.of(new Player(), new Player(),new Player(),new Player(),new Player());
     ;
-    private volatile List<Integer> points=List.of(0,0,0,0,0,0,0);
+    private volatile int[]points =new int[]{0,0,0,0,0};
     private volatile Player playerToChoseCategori;
     private volatile Player playerToAnswer;
 
-    /*
-    // Constructor
-    public Game() {
-
-        this.players = players;
-        this.playerToChoseCategori = playerToChoseCategori;
-        this.playerToAnswer = playerToAnswer;
-
-        board = null;
-        answerList = null;
-    }
-     */
 
     public void setPlayerToChoseCategori(Player playerToChoseCategori) {
         this.playerToChoseCategori = playerToChoseCategori;
@@ -38,7 +27,7 @@ public class Game {
         return players;
     }
 
-    public List<Integer> getPoints() {
+    public int[] getPoints() {
         return points;
     }
 
