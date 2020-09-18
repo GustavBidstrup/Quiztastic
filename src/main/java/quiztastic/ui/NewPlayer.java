@@ -31,7 +31,7 @@ public class NewPlayer implements Runnable{
 
 
         out.println("spilleregelr");
-      
+
         out.flush();
         game.getPlayers().get(id).setName(name);
 

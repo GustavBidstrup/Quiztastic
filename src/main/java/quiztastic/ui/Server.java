@@ -61,7 +61,7 @@ public class Server {
                 activePlayer = (activePlayer + 1) % numberOfPlayers;
 
             }
-
+            writeResult();
 
         }
         // for i 1-15 {
@@ -71,6 +71,9 @@ public class Server {
         //  ham der buzzede svarere spørgsmål
         //     resultat skrives til alle sockets
 
+    }
+
+    private void writeResult() {
     }
 
 
