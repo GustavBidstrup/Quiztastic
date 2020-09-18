@@ -20,72 +20,108 @@ import java.util.Scanner;
 public class Server {
     private final int port = 6060;
     private final ServerSocket serverSocket = new ServerSocket(port);
-    private List<Socket> sockets=new ArrayList<>();
-    private RunGame runGame=new RunGame();
-    private Game game= Quiztastic.getInstance().getCurrentGame();
-    private List<Thread> threads= new ArrayList<>();
+    private List<Socket> sockets = new ArrayList<>();
+    private RunGame runGame = new RunGame();
+    private Game game = Quiztastic.getInstance().getCurrentGame();
+    private List<Thread> threads = new ArrayList<>();
 
     public Server() throws IOException, InterruptedException {
         while (true) {
-           getPlayers(3);
-           System.out.println(game.getPlayers());
-           //starter 3 tråde med buzz returneer nr på første spiller
-           int activePlayer=0;
+
+            getPlayers(3);
+            System.out.println(game.getPlayers());
+            //starter 3 tråde med buzz returneer nr på første spiller
+            int activePlayer = 1;
             String questionString;
 
             for (int i = 0; i < 15; i++) {
-                questionString=choseQuestion(activePlayer);
-                activePlayer=allBuzz();
-                answerQuestion(questionString,activePlayer);
+                questionString = choseQuestion(activePlayer);
+                activePlayer = allBuzz();
+                answerQuestion(questionString, activePlayer);
 
             }
-           // for i 1-15 {
-             //   en spiller vælger kategori i sin tråd
-             //       spørgsmålk dskrives til alle sockets
-              //   alle buzz(); i hver deres tråd
-              //  ham der buzzede svarere spørgsmål
-               //     resultat skrives til alle sockets
-
-            }
-
-
+            // for i 1-15 {
+            //   en spiller vælger kategori i sin tråd
+            //       spørgsmålk dskrives til alle sockets
+            //   alle buzz(); i hver deres tråd
+            //  ham der buzzede svarere spørgsmål
+            //     resultat skrives til alle sockets
 
         }
 
+
+    }
+
     private void answerQuestion(String chosenQuestion, int activePlayer) throws IOException {
-                Scanner in=new Scanner(sockets.get(activePlayer).getInputStream());
-                PrintWriter out=new PrintWriter(sockets.get(activePlayer).getOutputStream());
+        Scanner in = new Scanner(sockets.get(activePlayer).getInputStream());
+        PrintWriter out = new PrintWriter(sockets.get(activePlayer).getOutputStream());
 
 
-                int categoryNumber = (int) chosenQuestion.charAt(0) - (int) 'a';
-                int questionNumber = Integer.parseInt(chosenQuestion.substring(1)) / 100 - 1;
-                out.println(game.getQuestionText(categoryNumber, questionNumber));
-                out.flush();
-                String answer = fetchLine(in,out);
-                String correctAnswer = game.answerQuestion(categoryNumber, questionNumber, answer);
-                if (correctAnswer == null) {
-                    out.println("Correct, You got " + (questionNumber + 1) * 100 + " points");
-                } else {
-                    out.println("Wrong, the answer was: " + correctAnswer);
-                }
-                out.flush();
+        int categoryNumber = (int) chosenQuestion.charAt(0) - (int) 'a';
+        int questionNumber = Integer.parseInt(chosenQuestion.substring(1)) / 100 - 1;
+        out.println(game.getQuestionText(categoryNumber, questionNumber));
+        out.flush();
+        String answer = fetchLine(in, out);
+        String correctAnswer = game.answerQuestion(categoryNumber, questionNumber, answer);
+        if (correctAnswer == null) {
+            out.println("Correct, You got " + (questionNumber + 1) * 100 + " points");
+        } else {
+            out.println("Wrong, the answer was: " + correctAnswer);
+        }
+        out.flush();
 
-            }
+    }
 
 
     private String choseQuestion(int activePlayer) throws IOException {
-        Scanner in=new Scanner(sockets.get(activePlayer).getInputStream());
-        PrintWriter out=new PrintWriter(sockets.get(activePlayer).getOutputStream());
+        Scanner in = new Scanner(sockets.get(activePlayer).getInputStream());
+        PrintWriter out = new PrintWriter(sockets.get(activePlayer).getOutputStream());
         out.println("Chose question :");
-        String q=fetchLine(in,out);
+        String q = fetchLine(in, out);
 
         return q;
 
     }
 
-    private int allBuzz() {
-        return 0;
+
+    public int allBuzz() throws IOException, InterruptedException {
+
+        int activePlayer = 0;
+
+        /*
+
+     Scanner in = new Scanner(System.in);
+        String str = "";
+
+        Thread t1 = new Thread();
+        Thread t2 = new Thread();
+        Thread t3 = new Thread();
+        t1.start();
+        System.out.println(t1);
+        t2.start();
+        System.out.println(t2);
+        t3.start();
+        System.out.println(t3);
+
+
+        for (Player p : game.getPlayers()) {
+            Thread thread = new Thread(();
+
+            thread.start();
+            System.out.println("Start " + thread);
+
+            System.out.println("Buzz in");
+
+            if (in.hasNext()) {
+                System.out.println(thread);
+                break;
+            }
+
+     */
+        return activePlayer;
+
     }
+
 
     private void getPlayers(int numberOfPlayers) throws IOException, InterruptedException {
         //tråde der connecter og henter navne
