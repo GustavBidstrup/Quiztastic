@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class Quiztastic {
     private static Quiztastic instance;
 
-    public static Quiztastic getInstance() {
+    public static Quiztastic getInstance(String fileName) {
         if (instance == null) {
             InputStream s = Quiztastic.class
                     .getClassLoader()
-                    .getResourceAsStream("master_season1-35clean.tsv");
+                    .getResourceAsStream(fileName);
             QuestionReader reader = new QuestionReader(new InputStreamReader(s));
             try {
                 MapQuestionRepository repo = MapQuestionRepository.fromQuestionReader(reader);

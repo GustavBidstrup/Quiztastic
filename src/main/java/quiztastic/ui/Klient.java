@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Klient implements Runnable {
     private final Scanner in;
     private final PrintWriter out;
-    private Game game = Quiztastic.getInstance().getCurrentGame();
+    private Game game = Quiztastic.getInstance(Server.filename).getCurrentGame();
     private Player klientPlayer;
 
     public Klient(Scanner in, PrintWriter out) {

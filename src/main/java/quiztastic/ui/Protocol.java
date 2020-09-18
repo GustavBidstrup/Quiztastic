@@ -20,7 +20,7 @@ public class Protocol {
     public Protocol(Scanner in, PrintWriter out) {
         this.in = in;
         this.out = out;
-        this.quiz = Quiztastic.getInstance();
+        this.quiz = Quiztastic.getInstance(Server.filename);
     }
 
     private String fetchCommand () {

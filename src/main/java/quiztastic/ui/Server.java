@@ -24,11 +24,11 @@ public class Server {
 
     private List<Socket> sockets = new ArrayList<>();
     private RunGame runGame = new RunGame();
-    private Game game = Quiztastic.getInstance().getCurrentGame();
+    private Game game;
     private List<Thread> threads = new ArrayList<>();
     public static volatile int  playerToAnswer=-1;
     public static volatile boolean someoneBuzzed=false;
-
+    public static volatile String filename="master_season1-35clean.tsv";
     private int numberOfPlayers = 3;
 
     public void setPlayerToAnswer(int playerToAnswer) {
@@ -38,6 +38,7 @@ public class Server {
     public Server() throws IOException, InterruptedException {
         while (true) {
             getPlayers(numberOfPlayers);
+            game=  Quiztastic.getInstance(filename).getCurrentGame();
             System.out.println(game.getPlayers());
             //starter 3 tråde med buzz returneer nr på første spiller
             int activePlayer = 0;
@@ -46,10 +47,16 @@ public class Server {
             for (int i = 0; i < 15; i++) {
                 drawBoardToAll();
                 questionString = choseQuestion(activePlayer);
+
                 writeToAll(game.getPlayers().get(activePlayer).getName() + " Chose question:");
+                int categoryNumber = (int) questionString.charAt(0) - (int) 'a';
+
+                int questionNumber = Integer.parseInt(questionString.substring(1)) / 100 - 1;
+                writeToAll(game.getQuestionText(categoryNumber, questionNumber));
                 playerToAnswer = allBuzz();
-                System.out.println(playerToAnswer);
                 writeToAll(game.getPlayers().get(playerToAnswer).getName() + " buzzed first and has to answer.");
+
+                System.out.println(playerToAnswer);
                 answerQuestion(questionString, playerToAnswer);
                 activePlayer = (activePlayer + 1) % numberOfPlayers;
 
@@ -76,7 +83,7 @@ public class Server {
 
         int categoryNumber = (int) chosenQuestion.charAt(0) - (int) 'a';
         int questionNumber = Integer.parseInt(chosenQuestion.substring(1)) / 100 - 1;
-        writeToAll(game.getQuestionText(categoryNumber, questionNumber));
+       // writeToAll(game.getQuestionText(categoryNumber, questionNumber));
         out.flush();
         String answer = fetchLine(in, out);
         writeToAll(game.getPlayers().get(activePlayer).getName() + " answered:" + answer);
