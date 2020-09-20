@@ -8,46 +8,40 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class NewPlayer implements Runnable{
-    private int id;
-    private final Scanner in;
-    private final PrintWriter out;
+    private Client client;
     private Game game= Quiztastic.getInstance(Server.filename).getCurrentGame();
 
-    public NewPlayer(int id, Scanner in, PrintWriter out) {
-        this.id = id;
-        this.in = in;
-        this.out = out;
+    public NewPlayer(Client client) {
+       this.client=client;
     }
 
 
     @Override
     public void run() {
         Player player = new Player();
-        out.println("What is your name?");
-        String name = fetchLine();
+        client.getOut().println("What is your name?");
+        String name = fetchLine(client);
        // name=fetchLine();
         player.setName(name);
-        out.println("you are now in the game " + player);
+        client.getOut().println("you are now in the game " + player);
 
 
-        out.println("spilleregelr");
+        client.getOut().println("spilleregelr");
 
-        out.flush();
-        game.getPlayers().get(id).setName(name);
+        client.setPlayer(player);
 
     }
-    private String fetchLine() {
-        out.print("> ");
-        out.flush();
-        String line = in.nextLine().strip();
+    private String fetchLine(Client client) {
+        client.getOut().print("> ");
+        String line = client.getIn().nextLine().strip();
         int start=0;
         //fjern foranliggende der ikke er bogstaver
-       for (int i = 0; i <line.length() ; i++) {
+      /* for (int i = 0; i <line.length() ; i++) {
             if(line.charAt(i)<'a'||line.charAt(i)>'Z'){
                 start=i;
             }
             line=line.substring(start);
-        }
+        }*/
         return line;
     }
 }

@@ -12,9 +12,9 @@ import java.util.List;
 public class Game {
     private final Board board;
     private final List<Answer> answerList;
-    private volatile List<Player> players=List.of(new Player(), new Player(),new Player(),new Player(),new Player());
+   // private volatile List<Player> players=List.of(new Player(), new Player(),new Player(),new Player(),new Player());
     ;
-    private volatile int[]points =new int[]{0,0,0,0,0};
+    //private volatile int[]points =new int[]{0,0,0,0,0};
     private volatile Player playerToChoseCategori;
     private volatile Player playerToAnswer;
 
@@ -22,15 +22,16 @@ public class Game {
     public void setPlayerToChoseCategori(Player playerToChoseCategori) {
         this.playerToChoseCategori = playerToChoseCategori;
     }
-
+/*
     public List<Player> getPlayers() {
         return players;
     }
-
+*/
+    /*
     public int[] getPoints() {
         return points;
     }
-
+*/
     public void setPlayerToAnswer(Player playerToAnswer) {
         this.playerToAnswer = playerToAnswer;
     }
@@ -47,13 +48,13 @@ public class Game {
         this.board = board;
         this.answerList = answerList;
     }
-
+/*
     public void addPlayer(Player player){
         players.add(player);
     }
     public int numberOffPlayers(){
         return players.size();
-    }
+    }*/
     public List<Category> getCategories() {
         List<Category> list = new ArrayList<>();
         for (Board.Group group : this.board.getGroups()) {
