@@ -5,10 +5,7 @@ import quiztastic.core.Category;
 import quiztastic.core.Question;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class BoardFactory {
     public final QuestionRepository questionRepository;
@@ -33,7 +30,9 @@ public class BoardFactory {
             Category c;
             Random random=new Random();
             int categoryNumber=0;
+
             while(groups.size() < 6) {
+
                 categoryNumber = random.nextInt(questionRepository.getCategories().size());
                 c=questionRepository.getCategories().get(categoryNumber);
 

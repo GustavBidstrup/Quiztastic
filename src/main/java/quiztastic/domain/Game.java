@@ -15,13 +15,13 @@ public class Game {
    // private volatile List<Player> players=List.of(new Player(), new Player(),new Player(),new Player(),new Player());
     ;
     //private volatile int[]points =new int[]{0,0,0,0,0};
-    private volatile Player playerToChoseCategori;
-    private volatile Player playerToAnswer;
+   // private volatile Player playerToChoseCategori;
+   // private volatile Player playerToAnswer;
 
 
-    public void setPlayerToChoseCategori(Player playerToChoseCategori) {
+   /* public void setPlayerToChoseCategori(Player playerToChoseCategori) {
         this.playerToChoseCategori = playerToChoseCategori;
-    }
+    }*/
 /*
     public List<Player> getPlayers() {
         return players;
@@ -32,7 +32,7 @@ public class Game {
         return points;
     }
 */
-    public void setPlayerToAnswer(Player playerToAnswer) {
+   /* public void setPlayerToAnswer(Player playerToAnswer) {
         this.playerToAnswer = playerToAnswer;
     }
 
@@ -42,7 +42,7 @@ public class Game {
 
     public Player getPlayerToAnswer() {
         return playerToAnswer;
-    }
+    }*/
 
     public Game(Board board, List<Answer> answerList) {
         this.board = board;

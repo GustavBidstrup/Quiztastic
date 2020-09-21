@@ -36,6 +36,7 @@ public class Server {
     }
 
     public Server() throws IOException, InterruptedException {
+
         while (true) {
             getPlayers(numberOfPlayers);
             game = Quiztastic.getInstance(filename).getCurrentGame();
@@ -44,7 +45,7 @@ public class Server {
             Client activePlayer = clients.get(activePlayerNumber);
             String questionString;
 
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 3; i++) {
                 drawBoardToAll();
 
                 questionString = choseQuestion(activePlayer);
@@ -65,11 +66,29 @@ public class Server {
             }
             writeResult();
 
+            for (Client c :clients ) {
+                c.getSocket().close();
+            }
+
+            clients.clear();
+
         }
 
     }
 
-    private void writeResult() {
+    private void writeResult() throws IOException {
+        HashMap<String, Integer> map = new HashMap();
+        for (int i = 0; i < clients.size(); i++) {
+            String str = clients.get(i).getPlayer().getName();
+            int tal = clients.get(i).getScore();
+            map.put(str, tal);
+        }
+        int maxValue = ((int) Collections.max(map.values()));
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == maxValue) {
+                writeToAll(entry.getKey() + " won" + " with" + maxValue + " points!");
+            }
+        }
     }
 
 

@@ -4,8 +4,7 @@ import quiztastic.app.Quiztastic;
 import quiztastic.core.Player;
 import quiztastic.domain.Game;
 
-import java.io.PrintWriter;
-import java.util.Scanner;
+
 
 public class NewPlayer implements Runnable{
     private Client client;
@@ -21,16 +20,24 @@ public class NewPlayer implements Runnable{
         Player player = new Player();
         client.getOut().println("What is your name?");
         String name = fetchLine(client);
-       // name=fetchLine();
         player.setName(name);
+
         client.getOut().println("you are now in the game " + player);
-
-
-        client.getOut().println("spilleregelr");
-
         client.setPlayer(player);
 
+
+        client.getOut().println("Reglerne i Quiztastic:");
+        client.getOut().println("Vi spiller 3 runder, 3 spillere.");
+        client.getOut().println("en runde består af:");
+        client.getOut().println("Spillet går i gang når der er 3 spillere");
+        client.getOut().println("Spillerne skiftes til at vælge spørgsmål. Man vælger ved at skrive f.eks a100.");
+        client.getOut().println("Så skal alle Buzze (trykke på return) den første som buzzer, får lov at svare på spørgsmålet");
+        client.getOut().println("Der svares og tildeles point , ved korrekt svar lægges de til ved forkert trækkes de fra");
+        client.getOut().println("Efter 3 runder har spileren med flest point vundet.");
+
+
     }
+
     private String fetchLine(Client client) {
         client.getOut().print("> ");
         String line = client.getIn().nextLine().strip();
@@ -44,4 +51,5 @@ public class NewPlayer implements Runnable{
         }*/
         return line;
     }
+
 }
